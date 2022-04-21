@@ -22,6 +22,9 @@ export default {
 </script>
 
 <style lang="scss">
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+ 
 *{
   padding: 0;
   margin: 0;
@@ -31,5 +34,7 @@ export default {
 .body{
   background-color: #1e2d3b;
   min-height: 100vh;
+  position: relative;
 }
+
 </style>

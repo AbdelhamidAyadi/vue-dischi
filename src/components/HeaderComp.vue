@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container_costum">
     <img src=".././assets/spotify.png" alt="">
   </div>
 </template>
@@ -12,7 +12,7 @@
 </script>
 
 <style scoped lang="scss">
-  .container {
+  .container_costum {
     padding: 10px;
     background: #2e3a46;
 

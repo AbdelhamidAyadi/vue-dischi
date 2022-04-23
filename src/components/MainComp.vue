@@ -1,12 +1,22 @@
 <template>
   <div>
+
+
+
+
     <div v-if="success" class="mega_container">
-      <SongComp v-for="(element , index) in songs" :key="index" :poster="element.poster" :title="element.title"
+      <SongComp v-for="(element , index) in filteredList" :key="index" :poster="element.poster" :title="element.title"
         :author="element.author" :year="element.year" />
     </div>
+
+
+
+
+
+
     <div v-else class="loading">
       <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
+
       </div>
     </div>
   </div>
@@ -19,6 +29,10 @@
 
   export default {
     name: 'MainComp',
+    props: {
+      resultGenre: String,
+      resultArtist: String,
+    },
     components: {
       SongComp,
     },
@@ -26,6 +40,9 @@
       return {
         songs: [],
         success: false,
+        artist: "",
+        genre: "",
+        filteredList: this.songs
 
       }
     },
@@ -37,12 +54,52 @@
 
           self.songs = response.data.response
           self.success = response.data.success
+          self.filteredList = self.songs
 
-          console.log(self.success)
+
 
         })
 
-    }
+    },
+
+    watch: {
+      resultGenre: function () {
+
+        this.genre = this.resultGenre
+
+        if (this.genre == "All") {
+          this.filteredList = this.songs
+        } else {
+          this.filteredList = this.songs.filter((elem) => {
+              if (elem.genre == this.genre) {
+                return true
+              }
+              return false
+            }
+
+          )
+        }
+      },
+      resultArtist: function () {
+
+        this.artist = this.resultArtist
+
+        if (this.artist == "All") {
+          this.filteredList = this.songs
+        } else {
+          this.filteredList = this.songs.filter((elem) => {
+              if (elem.author == this.artist) {
+                return true
+              }
+              return false
+            }
+
+          )
+        }
+      }
+    },
+
+
 
   }
 </script>
@@ -50,20 +107,23 @@
 <style scoped lang="scss">
   .mega_container {
     display: flex;
+    justify-content: center;
+  
     flex-wrap: wrap;
     width: 60%;
     margin: 0 auto;
   }
-  .loading{
-    .spinner-border{
+
+  .loading {
+    .spinner-border {
       width: 5rem;
       height: 5rem;
     }
-    
+
     color: white;
     position: absolute;
     left: 50%;
     top: 50%;
-    
+
   }
 </style>

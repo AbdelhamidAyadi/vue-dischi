@@ -1,10 +1,10 @@
 <template>
   <div class="body">
     <header>
-   <HeaderComp/>
+   <HeaderComp  @selectionGenre="selectionGenre" @selectionArtist="selectionArtist"/>
     </header>
     <main>
-      <MainComp/>
+      <MainComp :resultArtist="resultArtist" :resultGenre="resultGenre"/>
     </main>
   </div>
 </template>
@@ -17,6 +17,21 @@ export default {
   components: {
     HeaderComp,
     MainComp
+  },
+  data(){
+    return{
+      resultGenre:"",
+      resultArtist:""
+    }
+
+  },
+  methods:{
+    selectionGenre(text){
+      this.resultGenre = text
+    },
+    selectionArtist(text){
+      this.resultArtist = text
+    }
   }
 }
 </script>
